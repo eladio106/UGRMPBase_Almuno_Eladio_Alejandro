@@ -133,6 +133,10 @@ private:
      * this Kmer. 
      */
     std::string _text;
+    
+    
+    static const int TAM = 1000;
+    
 }; // end class Kmer
 
 /**
