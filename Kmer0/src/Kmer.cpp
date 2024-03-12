@@ -46,7 +46,7 @@ int Kmer::getK() const {
     return size();
 }
 
-//Método que use el metoro creado dentro de nuestro sistema llamado size()
+//Método que use el metodo creado dentro de nuestro sistema llamado size()
 int Kmer::size() const {
     
     return _text.size();
@@ -54,8 +54,11 @@ int Kmer::size() const {
 
 //Método típico toString() que devuelve una cadena
 string Kmer::toString() const{
-    string 
-    return ;
+    
+    string _kmer;
+    
+    _kmer = _text;
+    return _kmer;
 }
 
 //Método típico que devuelve una posición de la cadena _text de nuestro objeto kmer
@@ -67,21 +70,84 @@ const char& Kmer::at(int index) const{
                     "invalid position" + tostring(index));
     }
 
-
+    return text[index];
 }
 
-
-/**
-     * @brief Gets a reference to the character (nucleotide) at the given 
-     * position.
-     * Modifier method
-     * @param index the position to consider. Input parameter
-     * @throw std::out_of_range Throws an std::out_of_range exception if the 
-     * index is not in the range from 0 to k-1 (both included).
-     * @return A reference to the character at the given position
-     */
-    char& at(int index);
- 
-
 //Método típico que devuelve una posición de la cadena _text de nuestro objeto kmer
-//Protegido
+//Sin proteger
+
+    char& at(int index){
+
+        if(index<0||index>k-1){
+            throw out_of_range(string("Kmer(int index): ") + 
+                       "invalid position" + tostring(index));
+        }
+
+        return _text[index];
+    };
+ 
+//Método que normaliza el string de kmer que ya teniamos
+    void normalize(const std::string& validNucleotides){
+        bool correct=false;
+        toupper(_text[]);
+        
+        
+        for(int i=0; i<size();i++) {
+            if(IsValidNucleotide(_text[i],nucleotides){
+                for(int j=0; j<size();j++){
+                    if(_text[i]==validNucleotides[j]){
+                        correct=true;
+                    }
+                }
+            if(!correct) _text[i]=MISSING_NUCELOTIDE;
+            correct=false;
+        }
+    };
+
+    
+//Método que devuelve complementario el string de kmer que ya teniamos (normalizado)
+    Kmer complementary(const string& nucleotides, const string& complementaryNucleotides) const{
+        
+         if(nucleotides.size()!=complementaryNucleotides.size()){
+        throw out_of_range(string("Kmer(nucleotides.size()): ") + 
+                    "invalid inputs size" + tostring(complementaryNucleotides.size()));
+    }
+         
+         Kmer kmer_complementary(size());
+         
+        for(int i=0; i<size();i++) {
+            if(IsValidNucleotide(_text[i],nucleotides)){
+                for(int j=0; j<size();j++){
+                    if(_text[i]==nucleotides[j]){
+                        kmer_complementary[i]=complementaryNucleotides[j];
+                    }
+                }
+        }
+        
+        return kmer_complementary[];
+    };
+    
+    
+ bool IsValidNucleotide(char nucleotide, const std::string& validNucleotides){
+    bool valid=false;
+    
+        for(int i=0; i<size();i++){
+            if(nucleotide==validNucleotides[i]){
+                correct=true;
+            }
+        }
+    
+    return valid; 
+ };
+    
+//Metodo que convierte los nucleotidos en minúscula a mayúscula
+void ToUpper(Kmer& kmer){
+    toupper(kmer);
+    
+};
+
+//Metodo que convierte los nucleotidos en mayúscula a minúscula
+void ToLower(Kmer& kmer){
+    tolower(kmer);
+    
+};
