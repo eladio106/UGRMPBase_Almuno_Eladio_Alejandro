@@ -132,11 +132,8 @@ private:
      * A string with a list of characters representing the nucleotides in 
      * this Kmer. 
      */
-    std::string _text;
-    
-    
-    static const int TAM = 1000;
-    
+    string _text;
+
 }; // end class Kmer
 
 /**

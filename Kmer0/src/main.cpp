@@ -68,11 +68,12 @@ int main(int argc, char* argv[]) {
     
     
     // Read K (integer) and a string with the input nucleotides list
-    cout<<"Introduce k";
-    cin>>k;
     
-    cout<<"Introduce los nucleotidos";
-    cin>>InputString;
+    
+    //Usando los argumentos
+    k = argc;
+    
+    InputString=argv[];
        
     
             

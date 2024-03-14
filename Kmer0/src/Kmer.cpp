@@ -21,35 +21,36 @@ using namespace std;
 //Con los MISSING_NUCLEOTIDE
 
 Kmer::Kmer(int k){
-
     if(k<=0){
         throw invalid_argument(string("Kmer(int k): ") + 
-                    "invalid length" + tostring(k));
-    }
-    this ->_text=string(k,MISSING_NUCELOTIDE)
+                    "invalid length" + toString(k))
+    this ->_text=string(k, MISSING_NUCLEOTIDE);
+
 }
+    
 
 //Constructor por parámetros que construye un objeto mediante el paso de un string
 Kmer::Kmer(const string& text){
+
+    int k = text.size()
     
     if(text.size()<1){
-        throw invalid_argument(string("Kmer(int k): ") + 
-                    "invalid length" + tostring(k));
+        throw invalid_argument(string("Kmer(const string& text): ") + 
+                    "invalid length" + toString(const string& text)));
+    
+    this ->_text=string(text.size()),text
+
     }
-    this ->_text=string(text.size()),text)
-}
-
-
 //Método que use el metodo creado dentro de nuestro sistema llamado size()
 int Kmer::getK() const {
     
     return size();
 }
 
-//Método que use el metodo creado dentro de nuestro sistema llamado size()
+//Método que devuelve la longitud de los kmers
 int Kmer::size() const {
     
-    return _text.size();
+    return _text ;
 }
 
 //Método típico toString() que devuelve una cadena
