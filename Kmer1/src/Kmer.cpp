@@ -12,7 +12,7 @@
  * 
  * Created on 24 October 2023, 14:00
  */
-#include <string>
+
 #include "Kmer.h"
     
 using namespace std;
@@ -20,7 +20,7 @@ using namespace std;
 //Constructor por parámetros que construye un objeto de longitud k
 //Con los MISSING_NUCLEOTIDE
 
-Kmer::Kmer(int k){
+Kmer::Kmer(int k=1){
     if(k<=0){
         throw invalid_argument(string("Kmer(int k): ") + 
                     "invalid length" + toString(k))
@@ -87,10 +87,19 @@ const char& Kmer::at(int index) const{
         return _text[index];
     };
  
+    
+    void Kmer::toUpper(){
+        toupper(_text);
+    }
+    
+    void Kmer::toLower(){
+        tolower(_text);
+    }
+    
 //Método que normaliza el string de kmer que ya teniamos
-    void normalize(const std::string& validNucleotides){
+    void Kmer::normalize(const std::string& validNucleotides){
         bool correct=false;
-        toupper(_text[]);
+        toupper();
         
         
         for(int i=0; i<size();i++) {
@@ -107,7 +116,7 @@ const char& Kmer::at(int index) const{
 
     
 //Método que devuelve complementario el string de kmer que ya teniamos (normalizado)
-    Kmer complementary(const string& nucleotides, const string& complementaryNucleotides) const{
+    Kmer Kmer::complementary(const string& nucleotides, const string& complementaryNucleotides) const{
         
          if(nucleotides.size()!=complementaryNucleotides.size()){
         throw out_of_range(string("Kmer(nucleotides.size()): ") + 
@@ -141,6 +150,9 @@ const char& Kmer::at(int index) const{
     return valid; 
  };
     
+ 
+ 
+ 
 //Metodo que convierte los nucleotidos en minúscula a mayúscula
 void ToUpper(Kmer& kmer){
     toupper(kmer);
