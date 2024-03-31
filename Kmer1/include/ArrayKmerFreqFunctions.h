@@ -17,6 +17,9 @@
 #define ARRAYKMERFREQFUNCTIONS_H
 
 #include "KmerFreq.h"
+#include <iostream>
+
+using namespace std;
 
 /**
  * @brief Reads the number of used elements and the elements of an array of

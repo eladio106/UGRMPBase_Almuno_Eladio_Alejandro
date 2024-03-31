@@ -39,7 +39,7 @@ void KmerFreq::setKmer(Kmer kmer){
     this->_kmer = kmer;
 }
 
-void KmerFreq::setKmer(int frequency){
+void KmerFreq::setFrequency(int frequency){
     if(frequency<0){
         throw invalid_argument(string("Frequency: ") +
                 "invalid number" + frequency);
