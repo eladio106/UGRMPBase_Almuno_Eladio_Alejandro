@@ -126,7 +126,7 @@ const char& Kmer::at(int index) const{
             if(IsValidNucleotide(_text[i],nucleotides)){
                 for(int j=0; j<size();j++){
                     if(_text[i]==nucleotides[j]){
-                        kmer_complementary[i]=complementaryNucleotides[j];
+                        kmer_complementary[i].toString()=complementaryNucleotides[j];
                     }
                 }
             }

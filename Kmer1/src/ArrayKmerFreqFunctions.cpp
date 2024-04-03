@@ -39,9 +39,9 @@ void ReadArrayKmerFreq(KmerFreq array[], const int dim, int nElements){
 void PrintArrayKmerFreq(KmerFreq array[], int nElements){
     
     for(int i=0; i<nElements; i++){
-        cout<<array[i].getKmer().size()<<"  ";
+        cout<<nElements<<"  ";
         for(int j=0; j<array[i].getKmer().size(); j++){
-            cout<<array[j].getKmer();
+            cout<<array[j].getKmer().toString();
         }
     }            
 }
@@ -53,13 +53,19 @@ void SwapElementsArrayKmerFreq(KmerFreq array[], int nElements, int first,
 
 int FindKmerInArrayKmerFreq(KmerFreq array[], Kmer kmer,
         int initialPos, int finalPos){
-    return find(array[initialPos].getKmer(), array[finalPos].getKmer(), kmer);
+    int resultado=-1;
+    for (int i = initialPos; i <= finalPos; ++i) {
+        if (array[i].getKmer().toString() == kmer.toString()) {
+            resultado=i;
+        }
+    }
+    return resultado;
 }
 
 void SortArrayKmerFreq(KmerFreq array[], int nElements){
     for(int i=0; i<nElements-1; i++){
         if(array[i].getFrequency()<array[i+1].getFrequency()){
-            SwapElementsArrayKmerFreq(array[], nElements, i, i+1);
+            SwapElementsArrayKmerFreq(&array[i], nElements, i, i+1);
         }
     }
 }
@@ -71,16 +77,16 @@ void NormalizeArrayKmerFreq(KmerFreq array[], int nElements,
         for(int j=0; j<array[i].getKmer().size();j++){
             array[i].getKmer().toUpper();
             if(! IsValidNucleotide(array[i].getKmer().at(j),validNucleotides)){
-                array[i].getKmer().at(j)= "_";
+                array[i].getKmer().at(j) = array[i].getKmer().MISSING_NUCLEOTIDE;
             }    
         }
     }
     
     for(int i=0; i<nElements; i++){//Compara si hay Kmers iguales
         for(int j= i+1; j<nElements; j++){
-            if(array[i].getKmer().at() == array[j].getKmer()){
-                array[i].getFrequency() += array[j].getFrequency();
-                DeletePosArrayKmerFreq(array[], nElements, j);
+            if(array[i].getKmer().toString() == array[j].getKmer().toString()){
+                array[i].setFrequency(array[i].getFrequency() + array[j].getFrequency());
+                DeletePosArrayKmerFreq(&array[i], nElements, j);
             }
         }
     }
@@ -92,28 +98,29 @@ void DeletePosArrayKmerFreq(KmerFreq array[], int nElements, int pos){
         array[i]=array[i+1];
     }
     array[nElements-1].setFrequency(0);
-    array[nElements-1].setKmer("__");
+    array[nElements-1].setKmer(array[nElements-1].getKmer().MISSING_NUCLEOTIDE);
     nElements--;
 }
 
 
 
 void ZipArrayKmerFreq(KmerFreq array[], int nElements, 
-        bool deleteMissing=false, int lowerBound=0){
+        bool deleteMissing, int lowerBound){
     
     
     for(int i=0; i<nElements-1; i++){
-        if(array[i].getFrequency()=lowerBound=0) deleteMissing=true;
+        if(array[i].getFrequency()== lowerBound) deleteMissing=true;
         for(int j=0; j<array[i].getKmer().size(); j++){
-            if(array[i].getKmer().at(j)== "_") deleteMissing=true;
+            if(array[i].getKmer().at(j)== array[i].getKmer().MISSING_NUCLEOTIDE) deleteMissing=true;
         }
         
         if(deleteMissing){
             for(int k=i; k<nElements-1; k++){
                 array[k]=array[k+1];
             }      
+            
             array[nElements-1].setFrequency(0);
-            array[nElements-1].setKmer("__");
+            array[nElements-1].setKmer(array[nElements-1].getKmer().MISSING_NUCLEOTIDE);
             nElements--;
             
             deleteMissing=false;
