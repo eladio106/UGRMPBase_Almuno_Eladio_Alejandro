@@ -22,8 +22,7 @@ using namespace std;
 
 Kmer::Kmer(int k){
     if (k<=0){
-        throw invalid_argument(string("Kmer (int k): ") + 
-                "invalid length" + toString(k));
+        throw invalid_argument(string("Kmer (int k): invalid length"));
     }  
         this -> _text = string (k, MISSING_NUCLEOTIDE);
     
@@ -31,10 +30,8 @@ Kmer::Kmer(int k){
 
 //Constructor por parámetros que construye un objeto mediante el paso de un string
 Kmer::Kmer(const string& text){
-    if (text.size()<1){
-        throw invalid_argument(string("Kmer (const string& text): ") +
-                "invalid text length" + toString(text.size()));
-    }
+    if (text.size()<1)
+        throw invalid_argument(string("Kmer (const string& text) :invalid text length"));
     this ->_text = text;
 }
 
@@ -51,8 +48,7 @@ int Kmer::size() const {
 
 //Método típico toString() que devuelve una cadena
 string Kmer::toString() const{
-    string _kmer;
-    return _kmer;
+    return this->_text;
 }
 
 
@@ -61,8 +57,7 @@ string Kmer::toString() const{
 const char& Kmer::at(int index) const{
 
     if(index<0||index>_text.size()-1){
-        throw out_of_range(string("Kmer(int index): ") + 
-                    "invalid position" + toString(index));
+        throw out_of_range(string("Kmer(int index): invalid position"));
     }
     
     const char k = _text[index];
@@ -73,20 +68,21 @@ const char& Kmer::at(int index) const{
 //Sin proteger 
     char& Kmer::at(int index){
         if(index<0||index> _text.size()-1){
-            throw out_of_range(string("Kmer(int index): ") + 
-                       "invalid position" + toString(index));
+            throw out_of_range(string("Kmer(int index): invalid position"));
         }
 
         return _text[index];
     };
     
     void Kmer::toUpper(){
-        toupper(_text);
+       for (int i=0; i<this->_text.size(); i++)
+        putchar(toupper(this->_text[i]));
         
     }
     
     void Kmer::toLower(){
-        tolower(_text);
+        for (int i=0; i<this->_text.size(); i++)
+        putchar(tolower(this->_text[i]));
         
     }
     
@@ -97,13 +93,13 @@ const char& Kmer::at(int index) const{
         
         
         for(int i=0; i<size(); i++){
-            if(IsValidNucleotide(_text, validNucleotides)){
+            if(IsValidNucleotide(this->_text[i], validNucleotides)){
                 for(int j=0; j<size();j++){
-                    if(_text[i]==validNucleotides[j]){
+                    if(this->_text[i]==validNucleotides[j]){
                         correct=true;
                     }
                 }
-            if(!correct) _text[i]= MISSING_NUCLEOTIDE;
+            if(!correct) this->_text[i]= MISSING_NUCLEOTIDE;
             correct=false;
             }
         }
@@ -114,23 +110,23 @@ const char& Kmer::at(int index) const{
                      const string& complementaryNucleotides) const{
     
         if(nucleotides.size()!=complementaryNucleotides.size()){
-            throw out_of_range(string("Kmer(nucleotides.size()): ") + 
-                    "invalid inputs size" + toString(complementaryNucleotides.size()));
+            throw out_of_range(string("Kmer(nucleotides.size()): invalid inputs size"));
         }
         
         //Construimos un kmer complementario que será el que hagamos complementario
         Kmer kmer_complementary;
-        kmer_complementary.Kmer(_text.size());
+        //kmer_complementary((int)_text.size());
          
-        for(int i=0; i<size();i++) {
-            if(IsValidNucleotide(_text[i],nucleotides)){
-                for(int j=0; j<size();j++){
-                    if(_text[i]==nucleotides[j]){
-                        kmer_complementary[i].toString()=complementaryNucleotides[j];
+        for(int i=0; i<this->_text.size();i++) {
+            if(IsValidNucleotide(this->_text[i],nucleotides)){
+                for(int j=0; j<nucleotides.size();j++){
+                    if(this->_text[i]==nucleotides[j]){
+                        kmer_complementary.at(i)=complementaryNucleotides[j];
                     }
                 }
             }
         }
+        return kmer_complementary;
     }
     
     bool IsValidNucleotide(char nucleotide, const std::string& validNucleotides){
@@ -143,4 +139,4 @@ const char& Kmer::at(int index) const{
         }
     
     return valid; 
- };
+ }

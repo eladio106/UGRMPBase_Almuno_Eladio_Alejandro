@@ -18,6 +18,7 @@
 
 #include <iostream>
 #include <string>
+#include <cctype>
 
 /**
  * @class Kmer
@@ -43,7 +44,7 @@ public:
      * @param k the number of nucleotides in this Kmer. It should be an integer
      * greater than zero. Input parameter
      */
-    Kmer(int k =1);
+    Kmer(int k = 1);
     
     /**
      * @brief It builds a Kmer object with the characters in the string @p text 

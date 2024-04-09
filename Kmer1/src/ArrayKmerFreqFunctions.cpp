@@ -92,7 +92,7 @@ void NormalizeArrayKmerFreq(KmerFreq array[], int nElements,
     }
 }
 
-void DeletePosArrayKmerFreq(KmerFreq array[], int nElements, int pos){
+void DeletePosArrayKmerFreq(KmerFreq array[], int &nElements, int pos){
     
     for(int i=pos; i<nElements-1; i++){
         array[i]=array[i+1];
@@ -104,7 +104,7 @@ void DeletePosArrayKmerFreq(KmerFreq array[], int nElements, int pos){
 
 
 
-void ZipArrayKmerFreq(KmerFreq array[], int nElements, 
+void ZipArrayKmerFreq(KmerFreq array[], int& nElements, 
         bool deleteMissing, int lowerBound){
     
     

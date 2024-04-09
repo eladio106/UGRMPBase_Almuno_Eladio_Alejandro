@@ -18,19 +18,19 @@
 using namespace std;
 
 KmerFreq::KmerFreq(){
-    _kmer="_";       
+    _kmer;       
     _frequency=0;
     
 }
 
-Kmer KmerFreq::getKmer() const{
+Kmer KmerFreq::getKmer(){
     
-    return _kmer;
+    return this->_kmer;
 }
 
 int KmerFreq::getFrequency(){
     
-    return _frequency;
+    return this->_frequency;
 }
 
 
@@ -41,8 +41,7 @@ void KmerFreq::setKmer(Kmer kmer){
 
 void KmerFreq::setFrequency(int frequency){
     if(frequency<0){
-        throw invalid_argument(string("Frequency: ") +
-                "invalid number" + frequency);
+        throw invalid_argument(string("Frequency: invalid number" + frequency));
     }
         this->_frequency = frequency;
     
@@ -51,7 +50,7 @@ void KmerFreq::setFrequency(int frequency){
 string KmerFreq::toString(){
     string result;
     
-    result= to_string(_kmer) + " " + to_string(_frequency);
+    result = this->_kmer.toString() + " " + string(_frequency);
     
     return result;
     
