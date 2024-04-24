@@ -185,7 +185,7 @@ void Profile::deletePos(int pos){
     for(int i=pos; i<_size-1; i++){
         _vectorKmerFreq[i]=_vectorKmerFreq[i+1];
     }
-    _vectorKmerFreq[nElements-1].setFrequency(0);
+    _vectorKmerFreq[_size-1].setFrequency(0);
     _vectorKmerFreq[_size-1].setKmer(_vectorKmerFreq[_size-1].getKmer().MISSING_NUCLEOTIDE);
     _size--;
 }
